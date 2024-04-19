@@ -1,5 +1,5 @@
 const Home = () => {
-  return <div>Hellovase World!</div>;
+  return <div>Home page!</div>;
 };
 
 export default Home;
