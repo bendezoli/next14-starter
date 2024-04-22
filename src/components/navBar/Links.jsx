@@ -1,7 +1,15 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import classNames from "classnames";
+import { usePathname } from "next/navigation";
 
-const links = () => {
+const Links = ({ className }) => {
+  // const [isActive, setActive] = useState(0);
+  const path = usePathname();
+
+  console.log(path);
+
   const links = [
     {
       title: "Homepage",
@@ -21,10 +29,25 @@ const links = () => {
     },
   ];
 
+  // const activeLink = (index) => {
+  //   setActive(index);
+  // };
+
   return (
-    <div className="link-wrapper flex gap-6">
+    <div className={classNames(className, "link-wrapper, flex gap-6")}>
       {links.map((link, index) => (
-        <Link href={link.path} key={index}>
+        <Link
+          href={link.path}
+          key={index}
+          // className={`${isActive === index ? "bg-white" : "inactive"}`}
+          className={classNames(
+            path === link.path
+              ? "bg-white text-secondary"
+              : "bg-transparent text-white",
+            "rounded-xl p-4 transition-all duration-700"
+          )}
+          // onClick={() => activeLink(index)}
+        >
           {link.title}
         </Link>
       ))}
@@ -32,4 +55,4 @@ const links = () => {
   );
 };
 
-export default links;
+export default Links;

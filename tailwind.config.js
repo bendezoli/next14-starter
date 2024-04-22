@@ -32,7 +32,12 @@ module.exports = {
       short: { raw: "(max-height: 800px)" },
     },
 
-    extend: {},
+    extend: {
+      colors: {
+        primary: "#ffffff",
+        secondary: "#3aa7a4",
+      },
+    },
   },
   plugins: [],
 };

@@ -9,7 +9,7 @@ body {
     rgba(58, 167, 164, 1) 100%
   );
 
-  @apply text-white;
+  @apply text-white pt-[60px];
 }
 
 a {
