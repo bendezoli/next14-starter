@@ -22,7 +22,7 @@ const links = () => {
   ];
 
   return (
-    <div className="link-wrapper ">
+    <div className="link-wrapper flex gap-6">
       {links.map((link, index) => (
         <Link href={link.path} key={index}>
           {link.title}
