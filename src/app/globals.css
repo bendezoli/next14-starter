@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background: linear-gradient(
+    90deg,
+    rgba(124, 6, 6, 1) 0%,
+    rgba(58, 167, 164, 1) 100%
+  );
+
+  @apply text-white;
+}
+
+a {
+  @apply text-inherit;
+}
+
+.container {
+  @apply max-w-[1440px];
+}
