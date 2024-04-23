@@ -15,7 +15,7 @@ const ContactPage = () => {
         </div>
       </div>
       <div className={"flex-1 self-center"}>
-        <form action="" className={"flex flex-col gap-5"}>
+        <form action="" className={"form flex flex-col gap-5"}>
           <input type="text" placeholder="Name and Surname" />
           <input type="text" placeholder="Email Address" />
           <input type="text" placeholder="Phone Number (Optional)" />
