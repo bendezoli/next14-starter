@@ -38,7 +38,7 @@ const AboutPage = () => {
       </div>
       <div className={"flex-1 self-center"}>
         <div className="img aspect-square max-w-[700px]  relative ml-auto">
-          <Image src="/png/about.png" alt="About Image" fill className={""} />
+          <Image src="/png/about.png" alt="About Image" fill />
         </div>
       </div>
     </div>
