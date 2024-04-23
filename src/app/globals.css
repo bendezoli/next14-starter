@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg: #0d0c22;
+  --bgSoft: #2d2b42;
+  --text: white;
+  --textSoft: #e5e5e5;
+  --btn: #3673fd;
+}
+
 body {
   @apply text-white pt-[60px];
 }
@@ -24,4 +32,24 @@ a {
 
 .container {
   @apply max-w-[1440px];
+}
+
+.form input,
+.form textarea {
+  padding: 20px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background-color: var(--bgSoft);
+  color: var(--text);
+}
+
+.form button {
+  padding: 20px;
+  background-color: var(--btn);
+  color: var(--text);
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
