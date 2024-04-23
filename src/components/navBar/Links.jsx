@@ -1,12 +1,12 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import { usePathname } from "next/navigation";
 
 const Links = ({ className }) => {
-  // const [isActive, setActive] = useState(0);
   const path = usePathname();
+  const [open, setOpen] = useState(false);
 
   console.log(path);
 
@@ -29,29 +29,98 @@ const Links = ({ className }) => {
     },
   ];
 
-  // const activeLink = (index) => {
-  //   setActive(index);
-  // };
+  const session = false;
+  const isAdmin = false;
+
+  useEffect(() => {
+    setOpen(false);
+  }, [path]);
 
   return (
-    <div className={classNames(className, "link-wrapper, flex gap-6")}>
-      {links.map((link, index) => (
-        <Link
-          href={link.path}
-          key={index}
-          // className={`${isActive === index ? "bg-white" : "inactive"}`}
-          className={classNames(
-            path === link.path
-              ? "bg-white text-secondary"
-              : "bg-transparent text-white",
-            "rounded-xl p-4 transition-all duration-700"
-          )}
-          // onClick={() => activeLink(index)}
+    <>
+      <div
+        className={classNames(
+          className,
+          "link-wrapper,  gap-6 relative hidden lg:flex"
+        )}
+      >
+        {links.map((link, index) => (
+          <Link
+            href={link.path}
+            key={index}
+            className={classNames(
+              path === link.path
+                ? "bg-white text-secondary"
+                : "bg-transparent text-white",
+              "rounded-xl px-4 py-1  transition-all duration-700"
+            )}
+          >
+            {link.title}
+          </Link>
+        ))}
+
+        {session ? (
+          isAdmin && (
+            <>
+              <Link
+                href="/admin"
+                className={classNames(
+                  path === "/admin"
+                    ? "bg-white text-secondary"
+                    : "bg-transparent text-white",
+                  "rounded-xl px-4 py-1  transition-all duration-700"
+                )}
+              >
+                Admin
+              </Link>
+              <button>Log Out</button>
+            </>
+          )
+        ) : (
+          <Link
+            href="/login"
+            className={classNames(
+              path === "/login"
+                ? "bg-white text-secondary"
+                : "bg-transparent text-white",
+              "rounded-xl px-4 py-1  transition-all duration-700"
+            )}
+          >
+            Login
+          </Link>
+        )}
+      </div>
+
+      <div className="mobile">
+        <button
+          className="z-10 lg:hidden"
+          onClick={() => {
+            setOpen((prev) => !prev);
+          }}
         >
-          {link.title}
-        </Link>
-      ))}
-    </div>
+          Menu
+        </button>
+
+        {open && (
+          <div className="lg:hidden flex flex-col gap-6 items-center justify-center absolute h-screen w-1/2 right-0 top-0 bg-secondary">
+            {links.map((link, index) => (
+              <Link
+                href={link.path}
+                key={index}
+                className={classNames(
+                  path === link.path
+                    ? "bg-white text-secondary"
+                    : "bg-transparent text-white",
+                  "rounded-xl px-4 py-1  transition-all duration-700 w-fit"
+                )}
+              >
+                {link.title}
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

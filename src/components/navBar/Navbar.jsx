@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const navbar = () => {
   return (
-    <div className="nav-wrapper container h-[60px] flex items-center fixed left-0 top-0 w-full">
+    <div className="nav-wrapper container h-[60px] flex items-center fixed left-0 top-0 right-0 bottom-0 w-full">
       <div className="logo">
         <Link href="/">
           <Image
