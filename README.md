@@ -29,3 +29,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 
 https://www.youtube.com/watch?v=vCOSTG10Y4o
+
+completed: https://github.com/safak/next14-tutorial
