@@ -91,7 +91,7 @@ const Links = ({ className }) => {
         )}
       </div>
 
-      <div className="mobile">
+      <div className="mobile ">
         <button
           className="z-10 lg:hidden"
           onClick={() => {
@@ -102,7 +102,7 @@ const Links = ({ className }) => {
         </button>
 
         {open && (
-          <div className="lg:hidden flex flex-col gap-6 items-center justify-center absolute h-screen w-1/2 right-0 top-0 bg-secondary">
+          <div className="lg:hidden flex flex-col gap-6 items-center justify-center fixed h-screen w-1/2 right-0 top-0 bg-secondary z-100">
             {links.map((link, index) => (
               <Link
                 href={link.path}
