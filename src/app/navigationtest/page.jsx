@@ -7,11 +7,11 @@ const NavigationTestpage = () => {
   // client side navigation
   const router = useRouter();
 
-  console.log(router);
+  console.log(router, "router");
 
   const path = usePathname();
 
-  console.log(path);
+  console.log(path, "path");
 
   const searchParams = useSearchParams();
 

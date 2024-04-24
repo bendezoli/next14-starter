@@ -1,31 +1,38 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Image from "next/image";
+import PostUser from "@/components/postUser/postUser";
 
-const SinglePostPage = ({ params }) => {
-  // taking out params
-  console.log(params);
+const SinglePostPage = async ({ params }) => {
+  // taking out params { params }
+  console.log(params.slug, "slug");
+
+  // const { slug } = params;
+
+  const singlePost = async () => {
+    const res = await fetch(
+      `https://jsonplaceholder.typicode.com/posts/${params.slug}`,
+      { cache: "no-store" }
+    );
+
+    if (!res.ok) {
+      throw new Error("Something went wrong");
+    }
+
+    return res.json();
+  };
+
+  const detailPost = await singlePost();
+
+  console.log(detailPost);
+
   return (
     <div
       className={"flex flex-col lg:flex-row-reverse gap-20 pt-[40px] h-screen "}
     >
       <div className={"flex-1 flex flex-col justify-center"}>
         <h2 className={"text-6xl mb-10"}>Blog detail page</h2>
-        <h1 className={""}>
-          We create digital ideas that are bigger, bolder, braver and better.
-        </h1>
-        <p className={""}>
-          We create digital ideas that are bigger, bolder, braver and better. We
-          believe in good ideas flexibility and precission We’re world’s Our
-          Special Team best consulting & finance solution provider. Wide range
-          of web and software development services. We create digital ideas that
-          are bigger, bolder, braver and better. We believe in good ideas
-          flexibility and precission We’re world’s Our Special Team best
-          consulting & finance solution provider. Wide range of web and software
-          development services. We create digital ideas that are bigger, bolder,
-          braver and better. We believe in good ideas flexibility and precission
-          We’re world’s Our Special Team best consulting & finance solution
-          provider. Wide range of web and software development services.
-        </p>
+        <h1 className={"text-4xl mb-10"}>{detailPost.title}</h1>
+        <p className={""}>{detailPost.body}</p>
 
         <div className="author-wrapper mt-10 flex just-start items-center gap-10">
           <div className="author-img-wrapper w-[100px] h-[100px] rounded-full relative">
@@ -36,6 +43,12 @@ const SinglePostPage = ({ params }) => {
               className="object-cover rounded-full"
             />
           </div>
+          <pre>{JSON.stringify(detailPost.userId, null, 2)}</pre>
+          <pre>{JSON.stringify(detailPost.id, null, 2)}</pre>
+
+          <Suspense fallback={<div>Loading...</div>}>
+            <PostUser userId={detailPost.id} />
+          </Suspense>
 
           <div className="author-name flex gap-10">
             <div>
