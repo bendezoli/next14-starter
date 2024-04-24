@@ -1,7 +1,9 @@
 import React from "react";
 import Image from "next/image";
 
-const SinglePostPage = () => {
+const SinglePostPage = ({ params }) => {
+  // taking out params
+  console.log(params);
   return (
     <div
       className={"flex flex-col lg:flex-row-reverse gap-20 pt-[40px] h-screen "}

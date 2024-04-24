@@ -8,7 +8,7 @@ const Links = ({ className }) => {
   const path = usePathname();
   const [open, setOpen] = useState(false);
 
-  console.log(path);
+  // console.log(path);
 
   const links = [
     {
