@@ -6,6 +6,7 @@ import { getPost } from "../../../lib/data";
 const SinglePostPage = async ({ params }) => {
   // taking out params { params }
   console.log(params.slug, "slug");
+  console.log(typeof params.slug, "slug");
 
   const { slug } = params;
 
