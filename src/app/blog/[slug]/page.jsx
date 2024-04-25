@@ -1,29 +1,34 @@
 import React, { Suspense } from "react";
 import Image from "next/image";
 import PostUser from "@/components/postUser/postUser";
+import { getPost } from "../../../lib/data";
 
 const SinglePostPage = async ({ params }) => {
   // taking out params { params }
   console.log(params.slug, "slug");
 
-  // const { slug } = params;
+  const { slug } = params;
 
-  const singlePost = async () => {
-    const res = await fetch(
-      `https://jsonplaceholder.typicode.com/posts/${params.slug}`,
-      { cache: "no-store" }
-    );
+  // FETCH DATA WITH API
+  // const getData = async () => {
+  //   const res = await fetch(
+  //     `https://jsonplaceholder.typicode.com/posts/${params.slug}`,
+  //     { cache: "no-store" }
+  //   );
 
-    if (!res.ok) {
-      throw new Error("Something went wrong");
-    }
+  //   if (!res.ok) {
+  //     throw new Error("Something went wrong");
+  //   }
 
-    return res.json();
-  };
+  //   return res.json();
+  // };
 
-  const detailPost = await singlePost();
+  // const detailPost = await getData();
 
-  console.log(detailPost);
+  // FETCH DATA WITHOUT API
+  const detailPost = await getPost(slug);
+
+  // console.log(detailPost, "detailblog");
 
   return (
     <div
@@ -31,8 +36,8 @@ const SinglePostPage = async ({ params }) => {
     >
       <div className={"flex-1 flex flex-col justify-center"}>
         <h2 className={"text-6xl mb-10"}>Blog detail page</h2>
-        <h1 className={"text-4xl mb-10"}>{detailPost.title}</h1>
-        <p className={""}>{detailPost.body}</p>
+        <h1 className={"text-4xl mb-10"}>{detailPost?.title}</h1>
+        <p className={""}>{detailPost?.body}</p>
 
         <div className="author-wrapper mt-10 flex just-start items-center gap-10">
           <div className="author-img-wrapper w-[100px] h-[100px] rounded-full relative">
@@ -43,24 +48,14 @@ const SinglePostPage = async ({ params }) => {
               className="object-cover rounded-full"
             />
           </div>
-          <pre>{JSON.stringify(detailPost.userId, null, 2)}</pre>
+          {/* <pre>{JSON.stringify(detailPost.userId, null, 2)}</pre> */}
           <pre>{JSON.stringify(detailPost.id, null, 2)}</pre>
 
-          <Suspense fallback={<div>Loading...</div>}>
-            <PostUser userId={detailPost.id} />
-          </Suspense>
-
-          <div className="author-name flex gap-10">
-            <div>
-              <p>Author:</p>
-              <p className="uppercase">Lorem ipsum</p>
-            </div>
-
-            <div>
-              <p>Published:</p>
-              <p className="uppercase">11.02.2024</p>
-            </div>
-          </div>
+          {detailPost && (
+            <Suspense fallback={<div>Loading...</div>}>
+              <PostUser userId={detailPost.id} />
+            </Suspense>
+          )}
         </div>
       </div>
 

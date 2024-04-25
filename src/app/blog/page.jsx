@@ -1,27 +1,32 @@
 import PostCard from "@/components/postCard/postCard";
 import styles from "./blog.module.css";
+import { getPosts } from "../../lib/data";
 
 const BlogPage = async () => {
   // { params, searchParams }
   // console.log(params);
   // console.log(searchParams);
 
-  const getData = async () => {
-    const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
-      next: { revalidate: 3600 }, // 60 minutes
-    });
-    // const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
-    //   cache: "no-store",
-    // });
+  // FETCH DATA WITH API
+  // const getData = async () => {
+  //   const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
+  //     next: { revalidate: 3600 }, // 60 minutes
+  //   });
+  //   // const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
+  //   //   cache: "no-store",
+  //   // });
 
-    if (!res.ok) {
-      throw new Error("Something went wrong");
-    }
+  //   if (!res.ok) {
+  //     throw new Error("Something went wrong");
+  //   }
 
-    return res.json();
-  };
+  //   return res.json();
+  // };
 
-  const posts = await getData();
+  // const posts = await getData();
+
+  // FETCH DATA WITHOUT API
+  const posts = await getPosts();
 
   return (
     <div className={styles.container}>
