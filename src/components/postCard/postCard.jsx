@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const PostCard = ({ post }) => {
   const defaulIMG = "/png/noavatar.png";
-  console.log(post.img);
+  // console.log(post);
   return (
     <div className={(styles.container, `w-full md:w-[48%] lg:w-[32%]`)}>
       {/* <pre>{JSON.stringify(post.img, null, 2)}</pre> */}
@@ -14,7 +14,7 @@ const PostCard = ({ post }) => {
             src={post.img ? post.img : defaulIMG}
             alt=""
             fill
-            className={styles.img}
+            className={(styles.img, "object-cover")}
           />
         </div>
       </div>
@@ -22,7 +22,7 @@ const PostCard = ({ post }) => {
         <h1 className={styles.title}>{post.title.toUpperCase()}</h1>
         <p className={styles.desc}>{post.desc}</p>
 
-        <Link className={styles.link} href={`/blog/${post.id}`}>
+        <Link className={styles.link} href={`/blog/${post.slug}`}>
           READ MORE
         </Link>
       </div>

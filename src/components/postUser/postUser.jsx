@@ -24,6 +24,7 @@ const PostUser = async ({ userId }) => {
 
   // FETCH DATA WITHOUT API
   const user = await getUser(userId);
+  const defaulIMG = "/png/noavatar.png";
 
   // console.log(user, "inneruser");
   return (
@@ -35,9 +36,22 @@ const PostUser = async ({ userId }) => {
         width={50}
         height={50}
       /> */}
-      <div className={styles.texts}>
-        <span className={styles.title}>Author</span>
-        <span className={styles.username}>{user?.name}</span>
+      <div
+        className={(styles.texts, "flex justify-center items-center gap-10")}
+      >
+        <div className="author-img-wrapper w-[100px] h-[100px] rounded-full relative">
+          <Image
+            src={user.img ? user.img : defaulIMG}
+            alt="About Image"
+            fill
+            className="object-cover rounded-full"
+          />
+        </div>
+
+        <div>
+          <p className={styles.title}>Author:</p>
+          <p className={styles.username}>{user?.username.toUpperCase()}</p>
+        </div>
       </div>
     </div>
   );

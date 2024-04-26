@@ -5,8 +5,8 @@ import { getPost } from "../../../lib/data";
 
 const SinglePostPage = async ({ params }) => {
   // taking out params { params }
-  console.log(params.slug, "slug");
-  console.log(typeof params.slug, "slug");
+  // console.log(params.slug, "slug");
+  // console.log(typeof params.slug, "slug");
 
   const { slug } = params;
 
@@ -29,7 +29,7 @@ const SinglePostPage = async ({ params }) => {
   // FETCH DATA WITHOUT API
   const detailPost = await getPost(slug);
 
-  // console.log(detailPost, "detailblog");
+  console.log(detailPost, "detailblog");
 
   return (
     <div
@@ -38,31 +38,27 @@ const SinglePostPage = async ({ params }) => {
       <div className={"flex-1 flex flex-col justify-center"}>
         <h2 className={"text-6xl mb-10"}>Blog detail page</h2>
         <h1 className={"text-4xl mb-10"}>{detailPost?.title}</h1>
-        <p className={""}>{detailPost?.body}</p>
+        <p className={""}>{detailPost?.desc}</p>
 
         <div className="author-wrapper mt-10 flex just-start items-center gap-10">
-          <div className="author-img-wrapper w-[100px] h-[100px] rounded-full relative">
-            <Image
-              src="https://images.pexels.com/photos/19664604/pexels-photo-19664604/free-photo-of-portrait-of-man-playing-on-guitar-in-black-and-white.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-              alt="About Image"
-              fill
-              className="object-cover rounded-full"
-            />
-          </div>
           {/* <pre>{JSON.stringify(detailPost.userId, null, 2)}</pre> */}
-          <pre>{JSON.stringify(detailPost.id, null, 2)}</pre>
+          {/* <pre>{JSON.stringify(detailPost.id, null, 2)}</pre> */}
 
           {detailPost && (
             <Suspense fallback={<div>Loading...</div>}>
-              <PostUser userId={detailPost.id} />
+              <PostUser userId={detailPost.userId} />
             </Suspense>
           )}
+
+          <div className="date-wrpper">
+            <p>{detailPost.createdAt.toString().slice(4, 16)}</p>
+          </div>
         </div>
       </div>
 
       <div className={"flex-1 self-center"}>
         <div className="img aspect-square max-w-[700px]  relative ml-auto">
-          <Image src="/png/about.png" alt="About Image" fill />
+          <Image src={detailPost.img} alt="About Image" fill className="object-cover"/>
         </div>
       </div>
     </div>

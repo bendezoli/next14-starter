@@ -44,6 +44,7 @@ const postSchema = new mongoose.Schema(
     },
     img: {
       type: String,
+      required: true,
     },
     userId: {
       type: String,
@@ -53,6 +54,10 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
     },
   },
   { timestamps: true }
