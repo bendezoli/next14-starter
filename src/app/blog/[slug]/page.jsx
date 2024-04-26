@@ -3,6 +3,16 @@ import Image from "next/image";
 import PostUser from "@/components/postUser/postUser";
 import { getPost } from "../../../lib/data";
 
+export const generateMetadata = async ({ params }) => {
+  const { slug } = params;
+  const detailPost = await getPost(slug);
+
+  return {
+    title: detailPost.title,
+    description: detailPost.desc,
+  };
+};
+
 const SinglePostPage = async ({ params }) => {
   // taking out params { params }
   // console.log(params.slug, "slug");
@@ -58,7 +68,12 @@ const SinglePostPage = async ({ params }) => {
 
       <div className={"flex-1 self-center"}>
         <div className="img aspect-square max-w-[700px]  relative ml-auto">
-          <Image src={detailPost.img} alt="About Image" fill className="object-cover"/>
+          <Image
+            src={detailPost.img}
+            alt="About Image"
+            fill
+            className="object-cover"
+          />
         </div>
       </div>
     </div>
