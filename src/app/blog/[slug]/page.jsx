@@ -21,23 +21,23 @@ const SinglePostPage = async ({ params }) => {
   const { slug } = params;
 
   // FETCH DATA WITH API
-  // const getData = async () => {
-  //   const res = await fetch(
-  //     `https://jsonplaceholder.typicode.com/posts/${params.slug}`,
-  //     { cache: "no-store" }
-  //   );
+  const getData = async () => {
+    const res = await fetch(
+      `http://localhost:3000/api/blog/${slug}`,
+      { cache: "no-store" }
+    );
 
-  //   if (!res.ok) {
-  //     throw new Error("Something went wrong");
-  //   }
+    if (!res.ok) {
+      throw new Error("Something went wrong");
+    }
 
-  //   return res.json();
-  // };
+    return res.json();
+  };
 
-  // const detailPost = await getData();
+  const detailPost = await getData();
 
   // FETCH DATA WITHOUT API
-  const detailPost = await getPost(slug);
+  // const detailPost = await getPost(slug);
 
   // console.log(detailPost, "detailblog");
 
