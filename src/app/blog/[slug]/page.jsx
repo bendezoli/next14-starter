@@ -29,7 +29,7 @@ const SinglePostPage = async ({ params }) => {
   // FETCH DATA WITHOUT API
   const detailPost = await getPost(slug);
 
-  console.log(detailPost, "detailblog");
+  // console.log(detailPost, "detailblog");
 
   return (
     <div
