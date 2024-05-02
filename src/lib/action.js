@@ -3,6 +3,7 @@ import error from "@/app/error";
 import { connectToDb } from "./utils";
 import { Post } from "./models";
 import { revalidatePath } from "next/cache";
+import { signIn } from "./auth";
 
 export const addPost = async (formData) => {
   console.log(formData);
@@ -30,7 +31,7 @@ export const addPost = async (formData) => {
 export const deletePost = async (formData) => {
   console.log(formData);
   const { id } = Object.fromEntries(formData);
-//   console.log(id);
+  //   console.log(id);
 
   try {
     connectToDb();
@@ -43,4 +44,9 @@ export const deletePost = async (formData) => {
     console.log(e);
     return { error: "some error" };
   }
+};
+
+export const handleGitHubLogin = async () => {
+  "use server";
+  await signIn("github");
 };
