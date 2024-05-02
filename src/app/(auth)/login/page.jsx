@@ -1,4 +1,4 @@
-import { auth, signIn } from "@/lib/auth";
+import { auth } from "@/lib/auth";
 import { handleGitHubLogin } from "@/lib/action";
 import React from "react";
 

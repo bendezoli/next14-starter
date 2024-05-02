@@ -2,8 +2,12 @@ import React from "react";
 import Links from "./Links";
 import Link from "next/link";
 import Image from "next/image";
+import { auth } from "@/lib/auth";
 
-const navbar = () => {
+const navbar = async () => {
+  const session = await auth();
+  console.log(session, "session");
+
   return (
     <div className="nav-wrapper container h-[60px] flex items-center fixed left-0 top-0 right-0 bottom-0 w-full">
       <div className="logo">
@@ -16,7 +20,7 @@ const navbar = () => {
           />
         </Link>
       </div>
-      <Links className={`ml-auto`} />
+      <Links className={`ml-auto`} session={session} />
     </div>
   );
 };

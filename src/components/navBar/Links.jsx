@@ -3,12 +3,13 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import { usePathname } from "next/navigation";
+import { handleGitHubLogOut } from "@/lib/action";
 
-const Links = ({ className }) => {
+const Links = ({ className, session }) => {
   const path = usePathname();
   const [open, setOpen] = useState(false);
 
-  // console.log(path);
+  // console.log(session);
 
   const links = [
     {
@@ -29,8 +30,7 @@ const Links = ({ className }) => {
     },
   ];
 
-  const session = false;
-  const isAdmin = false;
+  const isAdmin = true;
 
   useEffect(() => {
     setOpen(false);
@@ -59,9 +59,9 @@ const Links = ({ className }) => {
           </Link>
         ))}
 
-        {session ? (
-          isAdmin && (
-            <>
+        {session?.user ? (
+          <>
+            {session.user?.isAdmin && (
               <Link
                 href="/admin"
                 className={classNames(
@@ -73,9 +73,21 @@ const Links = ({ className }) => {
               >
                 Admin
               </Link>
-              <button>Log Out</button>
-            </>
-          )
+            )}
+
+            <form action={handleGitHubLogOut}>
+              <button
+                className={classNames(
+                  path === "/login"
+                    ? "bg-white text-secondary"
+                    : "bg-transparent text-white",
+                  "rounded-xl px-4 py-1  transition-all duration-700"
+                )}
+              >
+                Logout
+              </button>
+            </form>
+          </>
         ) : (
           <Link
             href="/login"
