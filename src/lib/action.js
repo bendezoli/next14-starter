@@ -94,7 +94,7 @@ export const register = async (previousState, formData) => {
   }
 };
 
-export const login = async (formData) => {
+export const login = async (previousState, formData) => {
   // console.log(formData);
   const { username, password } = Object.fromEntries(formData);
 
@@ -102,6 +102,6 @@ export const login = async (formData) => {
     await signIn("credentials", { username, password });
   } catch (e) {
     console.log(e);
-    return { error: "Something went wrong" };
+    throw e;
   }
 };
