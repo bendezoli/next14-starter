@@ -1,5 +1,4 @@
 "use server";
-import error from "@/app/error";
 import { connectToDb } from "./utils";
 import { Post, User } from "./models";
 import { revalidatePath } from "next/cache";
@@ -58,13 +57,14 @@ export const handleGitHubLogOut = async () => {
   await signOut("github");
 };
 
-export const register = async (formData) => {
+export const register = async (previousState, formData) => {
   // console.log(formData);
   const { username, email, password, passwordRepeat } =
     Object.fromEntries(formData);
 
   if (password !== passwordRepeat) {
-    console.log("Passwords do not match");
+    // console.log("Passwords do not match");
+    return { error: "Passwords do not match" };
   }
 
   try {
@@ -73,7 +73,7 @@ export const register = async (formData) => {
     const existingUser = await User.findOne({ username });
 
     if (existingUser) {
-      console.log("User exists");
+      return { error: "User exist" };
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -87,6 +87,7 @@ export const register = async (formData) => {
 
     await newUser.save();
     console.log("User saved");
+    return { success: true };
   } catch (e) {
     console.log(e);
     return { error: "Something went wrong" };
