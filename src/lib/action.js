@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { signIn, signOut } from "./auth";
 import bcrypt from "bcryptjs";
 
-export const addPost = async (formData) => {
+export const addPost = async (previousState, formData) => {
   console.log(formData);
   //   const title = formData.get("title");
   //   const desc = formData.get("desc");
@@ -23,6 +23,7 @@ export const addPost = async (formData) => {
     console.log("Post saved");
 
     revalidatePath("/blog");
+    revalidatePath("/admin");
   } catch (e) {
     console.log(e);
     return { error: "some error" };
@@ -41,6 +42,47 @@ export const deletePost = async (formData) => {
     console.log("deleted from db");
 
     revalidatePath("/blog");
+    revalidatePath("/admin");
+  } catch (e) {
+    console.log(e);
+    return { error: "some error" };
+  }
+};
+
+export const addUser = async (previousState, formData) => {
+  console.log(formData);
+
+  const { username, email, password, img } = Object.fromEntries(formData);
+  // console.log(title);
+
+  try {
+    connectToDb();
+
+    const newUser = new User({ username, email, password, img });
+
+    await newUser.save();
+    console.log("Post saved");
+
+    revalidatePath("/admin");
+  } catch (e) {
+    console.log(e);
+    return { error: "some error" };
+  }
+};
+
+export const deleteUser = async (formData) => {
+  console.log(formData);
+  const { id } = Object.fromEntries(formData);
+  //   console.log(id);
+
+  try {
+    connectToDb();
+
+    await Post.deleteMany({ userId: id });
+    await User.findByIdAndDelete(id);
+    console.log("deleted from db");
+
+    revalidatePath("/admin");
   } catch (e) {
     console.log(e);
     return { error: "some error" };
