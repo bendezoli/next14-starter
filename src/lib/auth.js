@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToDb } from "./utils";
 import { User } from "./models";
 import bcrypt from "bcryptjs";
+import { authConfig } from "./auth.config";
 
 const login = async (credentials) => {
   try {
@@ -27,6 +28,7 @@ const login = async (credentials) => {
 };
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   providers: [
     GitHub({
       clientId: process.env.GITHUB_ID,
@@ -45,17 +47,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     async signIn({ user, account, profile }) {
-      //   console.log(profile, "profile ");
       if (account.provider === "github") {
         connectToDb();
-
         try {
-          const existingUser = await User.findOne({
-            email: profile.email,
-          });
+          const user = await User.findOne({ email: profile.email });
 
-          if (!existingUser) {
-            const newUser = await User.create({
+          if (!user) {
+            const newUser = new User({
               username: profile.login,
               email: profile.email,
               image: profile.avatar_url,
@@ -65,9 +63,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           }
         } catch (err) {
           console.log(err);
+          return false;
         }
       }
       return true;
     },
+    ...authConfig.callbacks,
   },
 });
