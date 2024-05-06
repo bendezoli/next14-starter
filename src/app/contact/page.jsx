@@ -24,9 +24,9 @@ const ContactPage = () => {
   // }, []);
 
   const a = Math.random(); //the value is different on client and server side: to fix we have 3 solutions: useEffect, disabling ssr on specific components(HydrationTestNoSSr) and with suppressHydrationWarning
-  console.log(a);
+  // console.log(a);
 
-  console.log("where it works");
+  // console.log("where it works");
 
   return (
     <div className={"flex flex-col lg:flex-row gap-20 pt-[40px] h-screen"}>

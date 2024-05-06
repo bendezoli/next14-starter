@@ -6,18 +6,18 @@ import { signIn, signOut } from "./auth";
 import bcrypt from "bcryptjs";
 
 export const addPost = async (previousState, formData) => {
-  console.log(formData);
+  // console.log(formData);
   //   const title = formData.get("title");
   //   const desc = formData.get("desc");
   //   const slug = formData.get("slug");
 
-  const { title, desc, slug, userId } = Object.fromEntries(formData);
-  console.log(title);
+  const { title, desc, slug, userId, img } = Object.fromEntries(formData);
+  console.log(formData);
 
   try {
     connectToDb();
 
-    const newPOst = new Post({ slug, title, desc, userId });
+    const newPOst = new Post({ slug, title, desc, userId, img });
 
     await newPOst.save();
     console.log("Post saved");
@@ -31,7 +31,7 @@ export const addPost = async (previousState, formData) => {
 };
 
 export const deletePost = async (formData) => {
-  console.log(formData);
+  // console.log(formData);
   const { id } = Object.fromEntries(formData);
   //   console.log(id);
 
@@ -50,7 +50,7 @@ export const deletePost = async (formData) => {
 };
 
 export const addUser = async (previousState, formData) => {
-  console.log(formData);
+  // console.log(formData);
 
   const { username, email, password, img } = Object.fromEntries(formData);
   // console.log(title);
@@ -71,7 +71,7 @@ export const addUser = async (previousState, formData) => {
 };
 
 export const deleteUser = async (formData) => {
-  console.log(formData);
+  // console.log(formData);
   const { id } = Object.fromEntries(formData);
   //   console.log(id);
 

@@ -12,7 +12,7 @@ const RegisterForm = () => {
 
   const router = useRouter();
 
-  console.log(state);
+  // console.log(state);
 
   useEffect(() => {
     state?.success && router.push("/login");

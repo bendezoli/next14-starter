@@ -7,7 +7,7 @@ import { deleteUser } from "@/lib/action";
 const AdminUsers = async () => {
   const users = await getUsers();
   const defaulIMG = "/png/noavatar.png";
-  console.log(users);
+  // console.log(users);
 
   return (
     <div className={styles.container}>
@@ -15,12 +15,14 @@ const AdminUsers = async () => {
       {users.map((user) => (
         <div className={styles.user} key={user.id}>
           <div className={styles.detail}>
-            <Image
-              src={user.img ? user.img : defaulIMG}
-              alt=""
-              width={50}
-              height={50}
-            />
+            <div className="relative w-[50px] h-[50px]">
+              <Image
+                src={user.img ? user.img : defaulIMG}
+                alt=""
+                fill
+                className={(styles.img, "object-cover")}
+              />
+            </div>
             <span>{user.username}</span>
           </div>
           <form action={deleteUser}>
